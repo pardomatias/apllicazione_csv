@@ -2,6 +2,13 @@
 #include <fstream>
 #include <string>
 using namespace std;
+
+struct location
+{
+	float lat;
+	float lon;
+};
+
 struct numerazionecivica
 {
 	string classetoponimo;
@@ -12,9 +19,10 @@ struct numerazionecivica
 	string sezioneistat;
 	float lat;
 	float lon;
-	string location;
+	location locuzione;
 };
 
+void aggiungi()
 /*void lettura_strut(int x)
 {
 	ifstream fileInput("Comune_Bergamo_-_Numerazione_civica.csv");
