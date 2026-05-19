@@ -13,7 +13,7 @@ struct location
 struct numerazionecivica
 {
 	string classetoponimo;
-	string tipotoponimo;
+	string nometoponimo;
 	string numero;
 	string subalterno;
 	string CAP;
@@ -41,7 +41,7 @@ void aggiungi_dati(int i, numerazionecivica dati[])
         stringstream riga(linea);
 
         getline(riga, dati[i].classetoponimo, ',');
-        getline(riga, dati[i].tipotoponimo, ',');
+        getline(riga, dati[i].nometoponimo, ',');
         getline(riga, dati[i].numero, ',');
         getline(riga, dati[i].subalterno, ',');
         getline(riga, dati[i].CAP, ',');
@@ -58,19 +58,20 @@ void stampa_file(int x)
     string linea;
 
     if (fileInput.is_open()) {
-        while (fileInput>>linea){ //getline(fileInput, linea)) { // Legge riga per riga
+        while (fileInput>>linea){ 
             cout << linea << '\n';
         }
-        fileInput.close(); // Chiude lo stream
+        fileInput.close(); 
     } else {
         cout << "Impossibile aprire il file";
     }
 }
+
 string visualizza(numerazionecivica ele[], int dim){
 	string s;
 	for(int i=0;i<dim;i++){
 		s+=ele[i].classetoponimo+"\t";
-		s+=ele[i].tipotoponimo+"\t";
+		s+=ele[i].nometoponimo+"\t";
 		s+=ele[i].numero+"\t";
 		s+=ele[i].subalterno+"\t";
 		s+=ele[i].CAP+"\t";
@@ -80,10 +81,26 @@ string visualizza(numerazionecivica ele[], int dim){
 	return s;
 	}
 
+void cerca(string r,numerazionecivica ele[],int l,int ini,int cont)
+{
+	for(int i = 0; i < l; i++)
+	{
+		if(r = ele[i].nometoponimo)
+		{
+			if(ini == 0)
+			ini = i;
+			
+			cont++;
+		}
+	}
+}
+
 
 int main() {
 	numerazionecivica dati[1000];
 	int f=0;
+	string r;
+	
 	do
 	{
 		cout<<"\n";
@@ -99,12 +116,18 @@ int main() {
 		switch(f)
 		{
 			case 1:
-				aggiungi_dati(1000,dati);
+				aggiungi_dati(0,dati);
 				break;
 				
 			case 2:
-				visualizza(dati,1000);
+				cout<<visualizza(dati,1000);
 				break;	
+			case 3:
+			    int ini = 0;
+	            int cont = 0;
+	            cout<<"inserisci il nome da cercare: ";
+	            getline(cin,r);
+				cerca(r,dati,1000,ini,cont);	
 		}
 	}while(f!=0);	
 
